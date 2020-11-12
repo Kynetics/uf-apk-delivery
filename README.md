@@ -157,6 +157,6 @@ List of all modules that mustn't be upload to Update Factory.
 
 # License
 
-Copyright (c) 2019, Kynetics LLC. 
+Copyright (c) 2020, Kynetics LLC. 
 
 Released under the EPLv2.0 License.
