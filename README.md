@@ -1,5 +1,19 @@
 # Apk delivery plugin
 This plugin automates the upload of applications to Update Factory server.
+[uf-apk-delivery-example](https://github.com/Kynetics/uf-apk-delivery-example) is an example project that uses this plugin.
+
+# Table of contents
+<!--ts-->
+   * [Apk delivery plugin](#apk-delivery-plugin)
+   * [Table of contents](#table-of-contents)
+   * [Plugin import](#plugin-import)
+        * [Publish to maven local](#publish-to-maven-local)
+        * [Import to Android project](#import-to-android-project)
+   * [Tasks](#tasks)
+   * [Plugin Configurations](#plugin-configurations)
+   * [Common Errors](#common-errors)
+
+<!--te-->
 
 # Plugin import
 To use the plugin:
@@ -88,72 +102,59 @@ These values, if present, are used instead on the generic values of the root `bu
 # Tasks
 When the plugin is correctly imported, the group `update factory` appears under the main project (root) of gradle tasks window.
 
-The following tasks are available.
-
-## deliveryApk
-Upload the project in the Update Factory server.
-
-The error message `The given entity already exists in database` occurs even if the entity isn't visible by the ui. This can happen when an entity is deleted from UF, as UF sometimes retains metadata for historical purpose.
-
-## getDistributionTypes
-Show all the distribution types supported by the tenant.
-
-## getSoftwareModuleTypes
-Show all the software module types supported by the tenant.
-
-## showSubProjects
-Show a list of all sub projects. To ignore a module adds its name to ignoreProjects field.
+The following tasks are available:
+- deliveryApk, uploads the project in the Update Factory server;
+- getDistributionTypes, shows all the distribution types supported by the tenant;
+- getSoftwareModuleTypes, shows all the software module types supported by the tenant;
+- showSubProjects, show a list of all sub projects. To ignore a module adds its name to ignoreProjects field.
 
 # Plugin Configurations
 The extension values of `Apk delivery plugin ` is contained in an object called `ufApkDelivery`.
 
-## tenant (mandatory)
-The Update Factory tenant.
+| Field   |      Description      |  Mandatory | Default | Allowed value |
+|----------|-------------|:------:|:------:|------|
+| tenant |  The Update Factory tenant | :heavy_check_mark: | - |  |
+| username |  The username to login into Update Factory tenant | :heavy_check_mark: | - |  |
+| password |  The password to login into Update Factory tenant. | :heavy_check_mark: | - |  |
+| thirdLevelDomain |  Third level domain value depends by your subscription type | :heavy_multiplication_x: | `personal` | <ul><li>`personal`: if the name of your subscription is one between `Free` or `Development`</li><li>`business`: if the name of your subscription is one of `Proof of Concept`, `Expansion` or `Commercial`</li></ul> |
+| softwareModuleType |  The type of software module that will be created | :heavy_multiplication_x: | `application` | Use `getSoftwareModuleTypes` task to view allowed values |
+| distributionType |  The type of distribution that will be created | :heavy_multiplication_x: | `app` | Use `getDistributionTypes` task to view allowed values |
+| vendor |  The vendor of software module | :heavy_multiplication_x: | "" | |
+| buildType |  The build type of the project to upload | :heavy_multiplication_x: | `release` | All project build types |
+| productFlavor |  The build type of the project to upload | :heavy_multiplication_x: | "" | The productFlavor of software module to upload (if exist) |
+| deliveryType | Define what resources are created in the Update Factory | :heavy_multiplication_x: | `MULTIPLE_SOFTWARE_MODULE` | <ul> <li>`SINGLE_SOFTWARE_MODULE`, it is created a software module in Update Factory server that contains all the apk (one for each project module)</li><li>`MULTIPLE_SOFTWARE_MODULE`, every project modules is mapped in an Update Factory software module, all software modules is added to a distribution;</li> <li>`MULTIPLE_DISTRIBUTION`,every project modules is mapped in an Update Factory distribution (that contains a software module).</li></ul>
+| version |  The distribution version. This file is ignored if the build type is `MULTIPLE_DISTRIBUTION` | :heavy_check_mark: | - |  |
+| ignoreProjects | List of all modules that mustn't be upload to Update Factory.  | :heavy_multiplication_x: | Empty list |  |
 
-## username (mandatory)
-The username to login into Update Factory tenant.
+# Common Errors
+These are the most common errors message.
 
-## password (mandatory)
-The password to login into Update Factory tenant.
+## The given entity already exists in database.
+This error happens when the plugin tries to create some software modules or distributions that already exist.
 
-## thirdLevelDomain (optional)
-Third level domain value depends by your subscription type:
+It can occur even if the entity isn't visible by the ui. This can happen when an entity is deleted from Update Factory, as Update Factory sometimes retains metadata.
+### Solution
+Change the version of your gradle module or the version field.
 
-- `personal` (default value) : if the name of your subscription is one between `Free` or `Development`
-- `business` : if the name of your subscription is one of `Proof of Concept`, `Expansion` or `Commercial`
+## Distribution set type does not contain the given module, i.e. is incompatible.
+The distribution type doesn't support the software module type.
+### Solution
+Change your distribution type or your software module type.
 
-## softwareModuleType (optional)
-The type of software module that will be create.
+## DistributionSetType with given identifier {distributionType} does not exist.
+The distribution type doesn't exist. 
+### Solution
+Set the distributionType field with one value returned by the `getSoftwareModuleTypes` task.
 
-The default value is `application`, typically this value should not be changed.
+## SoftwareModuleType with given identifier {softwareModuleType} does not exist.
+The software module type doesn't exist. 
+### Solution
+Set the softwareModuleType field with one value returned by the `getDistributionTypes` task.
 
-## distributionType (optional)
-The type of distribution that will be create.
-
-The default value is `app`, typically this value should not be changed.
-
-## vendor (optional)
-The vendor of software module.
-
-## buildType (optional)
-The build type of the project to upload.
-Default value is `release`.
-
-## productFlavor (optional)
-The productFlavor of software module to upload (if exist).
-
-## deliveryType (optional)
-Exist three type of delivery:
-
-1. *SINGLE_SOFTWARE_MODULE*: it is created a software module in Update Factory server that contains all the apk (one for each project module);
-2. *MULTIPLE_SOFTWARE_MODULE* (default): every project modules is mapped in an Update Factory software module, all software modules is added to a distribution;
-3. *MULTIPLE_DISTRIBUTION*(: every project modules is mapped in an Update Factory distribution (that contains a software module).
-
-### version (mandatory)
-The distribution version, this field is mandatory if the build type is one between SINGLE_SOFTWARE_MODULE and MULTIPLE_SOFTWARE_MODULE otherwise is ignored.
-
-## ignoreProjects (optional)
-List of all modules that mustn't be upload to Update Factory.
+## Unauthorized
+Wrong credentials
+### Solution
+Check the `username` and `password` fields.
 
 # License
 
