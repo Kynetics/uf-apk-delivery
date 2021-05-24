@@ -64,7 +64,7 @@ buildscript {
 }
 
 plugins{
-    id 'com.kynetics.updatefactory.plugin.ufapkdelivery' version("1.0.0")
+    id 'com.kynetics.updatefactory.plugin.ufapkdelivery' version("1.0.1")
 }
 
 ...

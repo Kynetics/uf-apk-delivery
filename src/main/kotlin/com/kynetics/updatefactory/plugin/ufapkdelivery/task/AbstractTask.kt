@@ -48,10 +48,10 @@ abstract class AbstractTask: DefaultTask() {
             return
         }
         val errorBody = response.errorBody()
+        logger.error("Error ${response.code()}, ${response.message()}")
+
         if (!response.isSuccessful && errorBody != null) {
             logger.error(UFApkDeliveryTask.gson.fromJson(errorBody.string(), Error::class.java).message)
-        } else {
-            logger.error("Error ${response.code()}, ${response.message()}")
         }
     }
 
