@@ -79,8 +79,7 @@ ufApkDelivery {
     productFlavor = "full"
     ignoreProjects = ["project-name"]
     deliveryType = "SINGLE_SOFTWARE_MODULE"
-    thirdLevelDomain = "personal"
-
+    thirdLevelDomain = "mgmt.business"
 }
 ```
 Replace the `ufApkDelivery` data with your applications and Update Factory access informations.  
@@ -116,7 +115,7 @@ The extension values of `Apk delivery plugin ` is contained in an object called 
 | tenant |  The Update Factory tenant | :heavy_check_mark: | - |  |
 | username |  The username to login into Update Factory tenant | :heavy_check_mark: | - |  |
 | password |  The password to login into Update Factory tenant. | :heavy_check_mark: | - |  |
-| thirdLevelDomain |  Third level domain value depends by your subscription type | :heavy_multiplication_x: | `personal` | <ul><li>`personal`: if the name of your subscription is one between `Free` or `Development`</li><li>`business`: if the name of your subscription is one of `Proof of Concept`, `Expansion` or `Commercial`</li></ul> |
+| thirdLevelDomain |  Third level domain value depends on your subscription type | :heavy_multiplication_x: | `mgmt.business` | <ul><li>`mgmt.personal`: if the name of your subscription is `Free` or `Development`</li><li>`mgmt.business`: if the name of your subscription `Proof of Concept`, `Expansion` or `Commercial`</li><li>See [UF Platform URLs](https://docs.updatefactory.io/platform/platform-overview/#platform-urls) for more details.</li></ul> |
 | softwareModuleType |  The type of software module that will be created | :heavy_multiplication_x: | `application` | Use `getSoftwareModuleTypes` task to view allowed values |
 | distributionType |  The type of distribution that will be created | :heavy_multiplication_x: | `app` | Use `getDistributionTypes` task to view allowed values |
 | vendor |  The vendor of software module | :heavy_multiplication_x: | "" | |

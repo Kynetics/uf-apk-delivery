@@ -53,7 +53,7 @@ open class UFApkDeliveryPluginExtension : UFApkDeliveryPluginExtensionInterface 
     override var deliveryType : UFApkDeliveryPluginExtensionInterface.DeliveryType = UFApkDeliveryPluginExtensionInterface.DeliveryType.MULTIPLE_SOFTWARE_MODULE
     override var ignoreProjects : MutableList<String> = mutableListOf()
     override var version : String = ""
-    override var thirdLevelDomain : String = "personal"
+    override var thirdLevelDomain : String = "mgmt.business"
 
     override fun buildUrl(): String {
         return "$protocol://$thirdLevelDomain$url"
