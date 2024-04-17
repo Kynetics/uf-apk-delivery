@@ -18,8 +18,8 @@ This plugin automates the upload of applications to Update Factory server.
 # Plugin import
 To use the plugin:
 
-1. publish it to your maven local repository (see *Publish to maven local* section);
-2. import it into your Android project (see *Import to Android project* section).
+1. [publish it to your maven local repository](#publish-to-maven-local)
+2. [import it into your Android project](#import-to-android-project)
 
 ## Publish to maven local
 Push `Apk delivery plugin` into your maven local repository with the following command:
