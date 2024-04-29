@@ -11,7 +11,7 @@
  */
 
 plugins {
-    kotlin("jvm") version ("1.7.21")
+    kotlin("jvm") version ("1.9.0")
     id("maven-publish")
     id("java-gradle-plugin")
 }
@@ -28,8 +28,8 @@ repositories {
 }
 
 
-val retrofitVersion = "2.4.0"
-val androidBuildToolVersion = "3.2.1"
+val retrofitVersion = "2.11.0"
+val androidBuildToolVersion = "8.2.2"
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
