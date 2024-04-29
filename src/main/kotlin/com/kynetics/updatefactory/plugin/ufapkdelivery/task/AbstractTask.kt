@@ -44,20 +44,28 @@ abstract class AbstractTask: DefaultTask() {
     }
 
     private fun printError(response: Response<*>?){
-        if(response == null){
-            return
+        val errorMessage = getErrorMessage(response)
+        if(errorMessage != null){
+            logger.error("Error ${response?.code()}, ${response?.message()}")
+            logger.error(errorMessage)
+        } else {
+            logger.error("No response from the server!")
+        }
+    }
+
+    protected fun getErrorMessage(response: Response<*>?): String? {
+        if (response == null) {
+            return null
         }
         val errorBody = response.errorBody()
-        logger.error("Error ${response.code()}, ${response.message()}")
-
-        if (!response.isSuccessful && errorBody != null) {
-            logger.error(UFApkDeliveryTask.gson.fromJson(errorBody.string(), Error::class.java).message)
-        }
+        return if (!response.isSuccessful && errorBody != null) {
+            UFApkDeliveryTask.gson.fromJson(errorBody.string(), Error::class.java)?.message
+        } else null
     }
 
     protected fun onError(
             response: Response<*>?,
-            client: Client,
+            client: ManagementApi,
             basic: String,
             newSoftwareModulesCreated: Map<Id, SoftwareModule>,
             newDistributionsCreated: Map<Id, Distribution>) :Boolean {

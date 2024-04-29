@@ -12,8 +12,9 @@
 package com.kynetics.updatefactory.plugin.ufapkdelivery.task
 
 import com.kynetics.updatefactory.plugin.ufapkdelivery.Plugin.Companion.EXTENSION_NAME
-import com.kynetics.updatefactory.plugin.ufapkdelivery.api.Client
+import com.kynetics.updatefactory.plugin.ufapkdelivery.api.ManagementApi
 import com.kynetics.updatefactory.plugin.ufapkdelivery.api.WrapperList
+import com.kynetics.updatefactory.plugin.ufapkdelivery.api.getManagementApiClient
 import com.kynetics.updatefactory.plugin.ufapkdelivery.extension.UFApkDeliveryPluginExtension
 import com.kynetics.updatefactory.plugin.ufapkdelivery.extension.UfApkDeliverPlugExtensionMerge
 import okhttp3.Credentials
@@ -32,7 +33,7 @@ abstract class UFGetTypesTask : AbstractTask() {
     fun action() {
         val defaultExtension = UFApkDeliveryPluginExtension()
         val extension = UfApkDeliverPlugExtensionMerge(getExtension<UFApkDeliveryPluginExtension>(project, EXTENSION_NAME)!!, defaultExtension)
-        val client = Client(extension.buildUrl())
+        val client = getManagementApiClient(extension.buildUrl())
         val basic = Credentials.basic("${extension.tenant}\\${extension.username}", extension.password)
 
         try {
@@ -52,17 +53,17 @@ abstract class UFGetTypesTask : AbstractTask() {
         }
     }
 
-    protected abstract fun getTypeArray(client: Client, auth:String) : Response<WrapperList>
+    protected abstract fun getTypeArray(client: ManagementApi, auth:String) : Response<WrapperList>
 }
 
 open class UFGetDistributionTypes: UFGetTypesTask(){
-    override fun getTypeArray(client: Client, auth: String): Response<WrapperList> {
+    override fun getTypeArray(client: ManagementApi, auth: String): Response<WrapperList> {
         return client.getDistributionType(auth).execute()
     }
 }
 
 open class UFGetSoftwareModuleTypes: UFGetTypesTask(){
-    override fun getTypeArray(client: Client, auth: String): Response<WrapperList> {
+    override fun getTypeArray(client: ManagementApi, auth: String): Response<WrapperList> {
         return client.getSoftwareModuleType(auth).execute()
     }
 }
