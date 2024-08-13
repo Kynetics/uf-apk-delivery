@@ -159,6 +159,6 @@ Check the `username` and `password` fields.
 
 # License
 
-Copyright (c) 2024, Kynetics LLC. 
+Copyright (c) 2024, Kynetics, Inc.. 
 
 Released under the EPLv2.0 License.

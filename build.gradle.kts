@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (c) 2024 Kynetics LLC
+ *  Copyright (c) 2024 Kynetics, Inc.
  *
  *  All rights reserved. This program and the accompanying materials are made
  *  available under the terms of the Eclipse Public License 2.0
@@ -18,7 +18,7 @@ plugins {
 
 
 group = "com.kynetics.updatefactory.plugin"
-version = "1.0.1"
+version = "1.1.0"
 
 repositories {
     mavenCentral()
@@ -36,6 +36,8 @@ dependencies {
     implementation("com.android.tools.build:gradle:$androidBuildToolVersion")
     implementation ("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation ("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+    implementation ("com.squareup.okhttp3:okhttp:3.14.9")
+    implementation ("com.squareup.okhttp3:logging-interceptor:3.14.9")
 
 }
 

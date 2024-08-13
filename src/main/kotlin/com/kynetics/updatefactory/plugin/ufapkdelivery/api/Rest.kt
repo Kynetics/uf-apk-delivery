@@ -1,6 +1,6 @@
 /*
  *
- *  Copyright (c) 2024 Kynetics LLC
+ *  Copyright (c) 2024 Kynetics, Inc.
  *
  *  All rights reserved. This program and the accompanying materials are made
  *  available under the terms of the Eclipse Public License 2.0
